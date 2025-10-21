@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: argocd-mcp-config
+  namespace: kagent
+data:
+  ARGOCD_SERVER_URL: "https://argocd-server.argocd.svc.cluster.local:443"
+  ARGOCD_INSECURE_SKIP_VERIFY: "true"
+  MCP_HOST: "0.0.0.0"
+  MCP_PORT: "3000"

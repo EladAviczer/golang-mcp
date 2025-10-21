@@ -1,0 +1,11 @@
+apiVersion: kagent.dev/v1alpha2
+kind: RemoteMCPServer
+metadata:
+  name: argocd-mcp-remote
+  namespace: kagent
+spec:
+  description: ''
+  # Which transport this remote server uses
+  protocol: STREAMABLE_HTTP
+  terminateOnClose: true
+  url: "http://argocd-mcp.kagent.svc.cluster.local:3000/mcp"

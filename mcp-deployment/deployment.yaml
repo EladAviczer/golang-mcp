@@ -1,0 +1,78 @@
+# 02-deploy-svc.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: argocd-mcp
+  namespace: kagent
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: argocd-mcp
+  template:
+    metadata:
+      labels:
+        app: argocd-mcp
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65532
+      containers:
+        - name: server
+          image: eladavi/argocd-mcp:0.0.3
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: ARGOCD_SERVER_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: argocd-mcp-config
+                  key: ARGOCD_SERVER_URL
+            - name: ARGOCD_INSECURE_SKIP_VERIFY
+              valueFrom:
+                configMapKeyRef:
+                  name: argocd-mcp-config
+                  key: ARGOCD_INSECURE_SKIP_VERIFY
+            - name: MCP_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: argocd-mcp-config
+                  key: MCP_HOST
+            - name: MCP_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: argocd-mcp-config
+                  key: MCP_PORT
+            - name: ARGOCD_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: argocd-mcp-secrets
+                  key: ARGOCD_TOKEN
+          ports:
+            - name: http
+              containerPort: 3000
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: http
+            initialDelaySeconds: 2
+            periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: http
+            initialDelaySeconds: 10
+            periodSeconds: 10
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: argocd-mcp
+  namespace: kagent
+spec:
+  selector:
+    app: argocd-mcp
+  ports:
+    - name: http
+      port: 3000
+      targetPort: http

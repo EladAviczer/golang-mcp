@@ -1,0 +1,18 @@
+# ArgoCD token generation
+kubectl -n argocd create sa mcp-bot
+kubectl -n argocd create rolebinding mcp-bot-binding \
+  --role argocd-server \
+  --serviceaccount argocd:mcp-bot
+kubectl -n argocd create token mcp-bot
+export ARGOCD_TOKEN=<printed-token>
+
+# Secret for the token
+kubectl create secret generic argocd-mcp-secrets \
+  -n kagent \
+  --from-literal=ARGOCD_TOKEN='<your_admin_or_service_token>'
+
+# ConfigMap for non-secret config
+kubectl create configmap argocd-mcp-config \
+  -n kagent \
+  --from-literal=ARGOCD_SERVER_URL='https://localhost:8080' \
+  --from-literal=ARGOCD_INSECURE_SKIP_VERIFY='true'
