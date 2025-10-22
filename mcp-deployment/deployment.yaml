@@ -19,7 +19,7 @@ spec:
         runAsUser: 65532
       containers:
         - name: server
-          image: eladavi/argocd-mcp:0.0.3
+          image: eladavi/argocd-mcp:0.0.4
           imagePullPolicy: IfNotPresent
           env:
             - name: ARGOCD_SERVER_URL
