@@ -12,8 +12,8 @@
 
 ---
 - kubernetes deployment (cm and secret also) for the MCP Server is also provided.
-- Kagent manifests includede: ModelConfig, RemoteMCPServer, Agent
+- Kagent manifests includes: ModelConfig, RemoteMCPServer, Agent
 
 ---
-For Docker compose deployment take a look at dockerr-compose.yaml (create relevant .env file)
+For Docker compose deployment take a look at docker-compose.yaml (create relevant .env file)
 ``docker compose up``
