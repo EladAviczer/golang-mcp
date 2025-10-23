@@ -6,13 +6,11 @@ services:
     ports:
       - "6274:6274" # web UI
       - "6277:6277" # proxy
-    environment:
-      - CLIENT_PORT=6274
-      - SERVER_PORT=6277
-      - MCP_AUTO_OPEN_ENABLED=false
-      - DANGEROUSLY_OMIT_AUTH=true   # for local dev only
   argo-mcp:
+    network_mode: host
     image: eladavi/argocd-mcp:latest
     build: .
+    env_file:
+      - .env
     ports:
       - "3000:3000"
