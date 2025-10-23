@@ -2,6 +2,7 @@ services:
   mcp-inspector:
     image: ghcr.io/modelcontextprotocol/inspector:latest
     container_name: mcp-inspector
+    network_mode: host
     ports:
       - "6274:6274" # web UI
       - "6277:6277" # proxy
@@ -10,3 +11,8 @@ services:
       - SERVER_PORT=6277
       - MCP_AUTO_OPEN_ENABLED=false
       - DANGEROUSLY_OMIT_AUTH=true   # for local dev only
+  argo-mcp:
+    image: eladavi/argocd-mcp:latest
+    build: .
+    ports:
+      - "3000:3000"
