@@ -1,0 +1,62 @@
+apiVersion: v2
+dependencies:
+- condition: kmcp.enabled
+  name: kmcp
+  repository: oci://ghcr.io/kagent-dev/kmcp/helm
+  version: 0.1.8
+- condition: kagent-tools.enabled
+  name: kagent-tools
+  repository: oci://ghcr.io/kagent-dev/tools/helm
+  version: 0.0.12
+- condition: tools.grafana-mcp.enabled, agents.observability-agent.enabled
+  name: grafana-mcp
+  repository: file://../tools/grafana-mcp
+  version: 0.7.2
+- condition: tools.querydoc.enabled
+  name: querydoc
+  repository: file://../tools/querydoc
+  version: 0.7.2
+- condition: agents.k8s-agent.enabled
+  name: k8s-agent
+  repository: file://../agents/k8s
+  version: 0.7.2
+- condition: agents.kgateway-agent.enabled
+  name: kgateway-agent
+  repository: file://../agents/kgateway
+  version: 0.7.2
+- condition: agents.istio-agent.enabled
+  name: istio-agent
+  repository: file://../agents/istio
+  version: 0.7.2
+- condition: agents.promql-agent.enabled
+  name: promql-agent
+  repository: file://../agents/promql
+  version: 0.7.2
+- condition: agents.observability-agent.enabled
+  name: observability-agent
+  repository: file://../agents/observability
+  version: 0.7.2
+- condition: agents.argo-rollouts-agent.enabled
+  name: argo-rollouts-agent
+  repository: file://../agents/argo-rollouts
+  version: 0.7.2
+- condition: agents.helm-agent.enabled
+  name: helm-agent
+  repository: file://../agents/helm
+  version: 0.7.2
+- condition: agents.cilium-policy-agent.enabled
+  name: cilium-policy-agent
+  repository: file://../agents/cilium-policy
+  version: 0.7.2
+- condition: agents.cilium-manager-agent.enabled
+  name: cilium-manager-agent
+  repository: file://../agents/cilium-manager
+  version: 0.7.2
+- condition: agents.cilium-debug-agent.enabled
+  name: cilium-debug-agent
+  repository: file://../agents/cilium-debug
+  version: 0.7.2
+description: A Helm chart for kagent, built with Google ADK
+name: kagent
+type: application
+version: 0.7.2
