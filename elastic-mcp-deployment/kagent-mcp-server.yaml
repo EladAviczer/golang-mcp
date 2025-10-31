@@ -1,0 +1,29 @@
+apiVersion: kagent.dev/v1alpha1
+kind: MCPServer
+metadata:
+  name: elasticsearch-mcp
+  namespace: kagent
+spec:
+  deployment:
+    args:
+      - "elasticsearch-mcp-server"
+      - --transport
+      - streamable-http
+      - --host
+      - "0.0.0.0"
+      - --port
+      - "8000"
+      - --path
+      - /mcp
+    cmd: uvx
+    env:
+      ELASTICSEARCH_HOSTS: http://elasticsearch.tsgs-saas-aws.wwest.local:80/
+      ELASTICSEARCH_USERNAME: elastic
+      ELASTICSEARCH_PASSWORD: test123
+      DEBUG: "*"
+    image: artifactory.rafael.co.il:6003/mcpcommunity/cr7258-elasticsearch-mcp-server:2.0.16 #mcpcommunity/cr7258-elasticsearch-mcp-server
+    port: 8000
+  transportType: http
+  httpTransport:
+    targetPort: 8000
+    path: "/mcp"
