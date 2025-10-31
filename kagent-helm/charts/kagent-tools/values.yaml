@@ -19,11 +19,11 @@ tools:
       cpu: 1000m
       memory: 512Mi
   prometheus:
-    url: "prometheus.kagent.svc.cluster.local:9090"
+    url: "prometheus.monitoring.svc.cluster.local:9090"
     username: ""
     password: ""
   grafana: # kubectl port-forward svc/grafana 3000:3000
-    url: "http://grafana.kagent.svc.cluster.local:3000"
+    url: "http://grafana.monitoring.svc.cluster.local:3000"
     apiKey: ""
 
 service:
